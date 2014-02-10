@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="main">
+	<div id="welcome">
+		<h2>Advertisement Details: {{ ad.product_name }}</h2>
+		<table border="0" align="center">
+		    <tr><td><b>Price:</b> {{ ad.price }}</td></tr>
+            <tr><td><b>Industry:</b> {{ ad.industry }}</td></tr>
+            <tr><td><b>Product Name:</b> {{ ad.product_name }}</td></tr>
+            <tr><td><b>Gender Preference:</b> {{ ad.gender }}</td></tr>
+            <tr><td><b>Age Range:</b> {{ ad.age_range }}</td></tr>
+            <tr><td><b>Number of contacts/followers:</b> {{ ad.number_of_contacts }}</td></tr>
+            <tr><td><b>Location:</b> {{ ad.location }}</td></tr>
+            <tr><td><b>Product details:</b> {{ ad.product_details }}</td></tr>
+            <tr><td><b>Suggested Wall Post:</b> {{ ad.suggested_post }}</td></tr>
+        </table>        
+        <br/><hr><br/>
+        {% if profile.role == 'merchant' %}
+        <h2>Ad Distributor Suggestions</h2>
+        <table border="0" align="center">
+            {% if facebook_suggestions %}
+                {% for fb_suggested in facebook_suggestions %}
+		            <tr><td><a href="/invite/{{ ad.id }}/{{ fb_suggested.0 }}">Make an invitation to {{ fb_suggested.0 }}</a></tr>
+		        {% endfor %}
+		    {% else %}
+		    {% if twitter_suggestions %}
+		        {% for tw_suggested in facebook_suggestions %}
+		            <tr><td><a href="/invite/{{ ad.id }}/{{ tw_suggested.0 }}">Make an invitation to {{ tw_suggested.0 }}</a></tr>
+		        {% endfor %}
+		    {% else %}
+		    <tr><td>There is no suggestion yet for your advertisement preferences!</td></tr>
+			{% endif %}
+			{% endif %}
+        </table>
+        {% endif %}
+	</div>
+</div>
+{% endblock %}

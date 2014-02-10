@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="main">
+	<div id="welcome">
+		<h2>Social Advertiser Ad Create</h2>
+		<p>This form will let you create your advertisement in <strong>Social Advertiser</strong>. After that you are able to choose the best advertiser according to the suggestions given by <strong>Social Advertiser</strong> network. Please fill in all fields.</p>
+	</div>
+	<form action="{% url create_ad %}" method="post">{% csrf_token %}
+	<table border="0">
+        {% for field in ad_form %}
+        <tr>
+            <div class="fieldWrapper">
+                {{ field.errors }}
+                <td>{{ field.label_tag }}:</td><td>{{ field }}</td>
+            </div>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td></td><td><input type="submit" value="Submit" /> <input type="reset" value="Clear" /></td>
+        </tr>
+	</table>
+	</form>
+<br/><br/>
+</div>
+{% endblock %}

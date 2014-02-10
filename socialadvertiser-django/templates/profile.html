@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+<div id="content">
+	{% block content %}
+	<div id="main">
+		<div id="welcome">
+			<h2>{{ user.username }} Profile</h2>
+			
+			{% if profile.role == "merchant" %}
+            <table border="0" align="center">
+                <tr><td>
+                    <a class="button" href="/create/"><span>Create an ad</span></a>
+                </td></tr>
+                {% if ads %}
+                    <tr><td>  
+                        <br/><hr>
+                        <p>Below is your advertisement history</p>
+                    </td></tr>
+                    {% for ad in ads %}
+                    <tr><td>
+                    <p>{{ ad.industry }} | {{ ad.product_name }} | <a href="{{ ad.get_absolute_url }}">See details</a></p>
+                    </td></tr>
+                    {% endfor %}
+                {% endif %}
+            </table>
+            {% endif %}
+           
+            {% if profile.role == "distributor" %}
+            <table border="0" align="center">
+                <tr>
+                    <td>
+                    <a class="button" href="{% url auth_facebook %}"><span>Activate me in Facebook</span></a>
+                    </td>
+                    {% if not profile.twitter_activated %}
+                    <td>
+                    <a class="button" href="{% url auth_twitter %}"><span>Activate me in Twitter</span></a>
+                    </td>
+                    {% endif %}
+                </tr>
+            </table>
+            {% endif %}
+            
+            {% if profile.role == "distributor" and profile.twitter_activated %}
+            <br/><br/><hr><br/>
+            <table border="0" align="center">
+                <tr><td>
+                    <p>Below is your Twitter advertisement history</p>
+                </td></tr>
+				{% for ad in twitter_ads %}	
+					<tr>
+						<td><a class="button" href="/post/twitter/{{ad.suggested_post}}"><span>Post {{ad.merchant}}'s {{ad.product_name}} ad in my Twitter</span></a><a href="/profile/ad/{{ ad.id }}">  See details</a></td>
+					</tr>
+				{% endfor %}
+            </table>
+            {% endif %}
+            
+            {% if profile.role == "distributor" and profile.facebook_activated %}
+            <br/><br/><hr><br/>
+            <table border="0" align="center">
+                <tr><td>
+                    <p>Below is your Facebook advertisement history</p>
+                </td></tr>
+				{% for ad in facebook_ads %}	
+					<tr>
+						<td><a class="button" href="/post/facebook/{{ad.suggested_post}}"><span>Post {{ad.merchant}}'s {{ad.product_name}} ad in my Facebook</span></a><a href="/profile/ad/{{ ad.id }}">  See details</a></td>
+					</tr>
+				{% endfor %}
+            </table>
+            {% endif %}
+            
+		</div>
+	</div>
+	{% endblock %}
+</div>

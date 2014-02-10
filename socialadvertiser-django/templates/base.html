@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Social Advertiser by NTUCSIE System Research Group</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="/static/css/default.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+	<div id="topmenu">
+		<ul>
+			<li><a href="{% url home %}" id="topmenu1" accesskey="1" title="Homepage"><span>Home</span></a></li>
+			<li><a href="#" id="topmenu3" accesskey="3" title="Contact Us"><span>Contact</span></a></li>
+		</ul>
+	</div>
+	<div id="logo">
+		<h1><a href="{% url home %}">Social Advertiser</a></h1>
+		<h2><a href="http://www.csie.ntu.edu.tw/">By NTUCSIE SRL Group</a></h2>
+	</div>
+</div>
+<div id="menu">
+	<ul>
+		<li class="first"><a href="#" title="">How does it work?</a></li>
+		<li><a href="#" title="">About Social Advertiser</a></li>
+	</ul>
+</div>
+<div id="content">
+	{% block content %} {% endblock %}
+    {% block sidebar %}
+	<div id="sidebar">
+		<div id="login" class="boxed">
+			<h2 class="title">Client Account</h2>
+            <div class="content">
+            {% if user.is_authenticated %}
+                <p align="center">[ {{ profile.role|capfirst }} ]</p>
+                <p align="center"><a href="{% url profile %}">{{ user.username }}'s Profile</a></p>
+                <p align="center"><a href="{% url signout %}">Logout</a></p>
+            {% else %}
+				<form id="form1" method="post" action="{% url signin %}">{% csrf_token %}
+                    {{ form.non_field_errors }}
+					<fieldset>
+                        <legend>Sign-In</legend>
+                        <div class="fieldWrapper">
+                          {{ form.username.errors }}
+                          <label for="id_username" name="id_username">Client ID:</label>
+                          {{ form.username }}
+                        </div>
+                        <div class="fieldWrapper">
+                          {{ form.password.errors }}
+                          <label for="id_password" name="id_password">Password:</label>
+                          {{ form.password }}
+                        </div>
+                        <input id="inputsubmit1" type="submit" name="inputsubmit1" value="Sign In" />
+                        <p><a href="{% url signup %}">Not have an account yet?</a></p>
+					</fieldset>
+				</form>
+            {% endif %}
+			</div>
+		</div>
+		<div id="updates" class="boxed">
+			<h2 class="title">Recent Updates</h2>
+			<div class="content">
+				<ul>
+					<li>
+						<h3>March 5, 2007</h3>
+						<p><a href="#">In posuere eleifend odio quisque semper augue mattis wisi maecenas&#8230;</a></p>
+					</li>
+					<li>
+						<h3>March 3, 2007</h3>
+						<p><a href="#">Quisque dictum integer nisl risus, sagittis convallis, rutrum id, congue, and nibh&#8230;</a></p>
+					</li>
+					<li>
+						<h3>February 28, 2007</h3>
+						<p><a href="#">Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum&#8230;</a></p>
+					</li>
+					<li>
+						<h3>February 25, 2007</h3>
+						<p><a href="#">Nam pede erat, porta eu, lobortis eget, tempus et, tellus. Etiam nequea&#8230;</a></p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+    {% endblock %}
+</div>
+<div id="footer">
+	<p id="legal">Copyright &copy; 2011 Social Advertiser. All Rights Reserved.</p>
+	<p id="links"><a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
+</div>
+</body>
+</html>
