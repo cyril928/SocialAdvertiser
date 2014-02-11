@@ -1,7 +1,7 @@
-SocialAdvertiser (Cooperated with Hakkı Caner Kırmızı and Elsa Liew)
+SocialAdvertiser 
 ================
 
-Social Advertiser - A Social Network based Advertisement System
+Social Advertiser - A Social Network based Advertisement System  (Cooperated with Hakkı Caner Kırmızı and Elsa Liew)
 
 - socialad-recommendation-hadoop
    
